@@ -26,12 +26,12 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 // --- Global Variables ---
 volatile byte pulseCount;
-float calibrationFactor = 16.005; // <-- FIXED SYNTAX
+float calibrationFactor = 16.005; // 
 float flowRate;
 unsigned long totalMilliLitres = 0;   // Tracks total volume, never resets
 unsigned long cycleMilliLitres = 0;   // Tracks volume for the current cycle
 bool pumpState = false;
-String currentMoisture = "0 %"; // <-- ADDED: To store moisture reading
+String currentMoisture = "0 %"; // To store moisture reading
 
 // Timers
 unsigned long previousMillis = 0;
@@ -47,14 +47,14 @@ int readingCountForMinute = 0;
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// --- START: NEW FAILSAFE & RECONNECT VARIABLES ---
+// --- START: FAILSAFE & RECONNECT VARIABLES ---
 unsigned long lastReconnectAttempt = 0;
 const long reconnectInterval = 5000; // Try to reconnect every 5 seconds
 
 // Failsafe: Turn pump off if MQTT is disconnected
 unsigned long disconnectionTime = 0; // 0 = connected
 const unsigned long MQTT_FAILSAFE_DURATION = 2000; // 2 seconds
-// --- END: NEW FAILSAFE & RECONNECT VARIABLES ---
+// --- END: FAILSAFE & RECONNECT VARIABLES ---
 
 
 // --- Function to send the final OFF status ---
@@ -70,7 +70,7 @@ void sendPumpOffStatus() {
 
   StaticJsonDocument<300> doc;
   doc["device_uid"] = DEVICE_UID;
-  doc["moisture"] = currentMoisture; // <-- ADDED
+  doc["moisture"] = currentMoisture; // 
   doc["timestamp"] = formattedTime;
   doc["flow_rate"] = 0.00;
   doc["total_flow"] = float_with_three_decimals(totalMilliLitres / 1000.0);
@@ -114,7 +114,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
   }
   
-  // --- UPDATED: Store moisture reading ---
+  //  Store moisture reading ---
   if (String(topic) == MQTT_TOPIC_MOISTURE) {
     currentMoisture = message; // Save the incoming moisture value
     Serial.print("Received new moisture reading: ");
@@ -177,7 +177,7 @@ void setup_wifi() {
     Serial.println(WiFi.localIP());
 }
 
-// --- NEW: NON-BLOCKING RECONNECT FUNCTION ---
+//  NON-BLOCKING RECONNECT FUNCTION ---
 void mqttReconnectAttempt() {
   Serial.print("Attempting MQTT connection...");
   
@@ -218,7 +218,7 @@ void setup() {
 }
 
 
-// --- START: REWRITTEN MAIN LOOP ---
+// --- START: MAIN LOOP ---
 void loop() {
   // These functions MUST run every loop, regardless of connection state
   timeClient.update();
@@ -357,7 +357,7 @@ void loop() {
     }
   } // End of if-else client.connected()
 }
-// --- END: REWRITTEN MAIN LOOP ---
+// --- END: MAIN LOOP ---
 
 
 // Helper functions for formatting floats
@@ -366,4 +366,5 @@ float float_with_two_decimals(float value) {
 }
 float float_with_three_decimals(float value) {
   return (int)(value * 1000) / 1000.0;
+
 }
