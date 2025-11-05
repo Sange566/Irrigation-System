@@ -177,17 +177,17 @@ pio run -e esp32 -t upload --upload-port /dev/ttyUSB0
 
 ```cpp
 // MQTT Settings
-#define MQTT_BROKER "192.168.1.100"    // Raspberry Pi IP
+#define MQTT_BROKER "<your_broker_credentials>"    // Raspberry Pi IP
 #define MQTT_PORT 1883
-#define MQTT_USER "aqualink"
-#define MQTT_PASS "secure_password"
+#define MQTT_USER "your_username_here"
+#define MQTT_PASS "<your_mqtt_password>"
 
 // Sensor Calibration
 #define SOIL_MOISTURE_THRESHOLD 400    // Trigger pump at this level
 #define FLOW_SENSOR_CALIBRATION 4.5    // Pulses per liter
 
 // Device Identity
-#define DEVICE_ID "aqualink_zone_1"
+#define DEVICE_ID "<your_device_id>"
 #define GREENHOUSE_ID "ARC_GH_001"
 
 // Timing
@@ -215,8 +215,8 @@ protocol websockets
   "mqtt": {
     "broker": "localhost",
     "port": 1883,
-    "username": "aqualink",
-    "password": "secure_password",
+    "username": "your_username_here",
+    "password": "your_secure_password",
     "topics": [
       "aqualink/+/flowrate",
       "aqualink/+/pumpstatus",
@@ -224,7 +224,7 @@ protocol websockets
     ]
   },
   "oracle": {
-    "host": "oracle-apex.example.com",
+    "host": "<oracle_apex_instance>",
     "port": 443,
     "protocol": "https",
     "endpoints": {
