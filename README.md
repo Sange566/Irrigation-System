@@ -74,34 +74,8 @@ AquaLink addresses these challenges through precision, automation, and intellige
 
 ## 🏗️ System Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    FRONTEND LAYER                        │
-│            Oracle APEX Web Dashboard                     │
-│  (Real-time monitoring, manual control, analytics)      │
-└──────────────────────┬──────────────────────────────────┘
-                       │ REST API
-┌──────────────────────▼──────────────────────────────────┐
-│                  API & DATA LAYER                        │
-│  Oracle APEX REST Endpoints + Oracle Database           │
-│              (Data storage & retrieval)                  │
-└──────────────────────┬──────────────────────────────────┘
-                       │ Python Script
-┌──────────────────────▼──────────────────────────────────┐
-│               COMMUNICATION HUB                          │
-│    Raspberry Pi (MQTT Broker + Data Aggregator)         │
-└──┬─────────────────────────────────────────────────┬────┘
-   │ MQTT Topics                           MQTT Topics  │
-   │                                                    │
-┌──▼─────────────────────┐              ┌────────────▼──┐
-│    SENSOR NODES        │              │  ACTUATORS   │
-├────────────────────────┤              ├──────────────┤
-│  ESP32 Microcontroller │              │ Relay Module │
-│  - Soil Moisture Data  │  ◄─────────► │ Water Pump   │
-│  - Water Flow Sensor   │  (Events)    │              │
-│  - Environmental Data  │              └──────────────┘
-└────────────────────────┘
-```
+![System Architecture](https://github.com/Moufire-7/ARC_Irrigation_System/blob/main/Media/System%20Architecture.png?raw=true)
+
 
 **Data Flow Path:**
 ```
